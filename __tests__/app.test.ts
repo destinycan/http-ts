@@ -7,7 +7,7 @@ describe('test success', () => {
     });
 
     test('test file path', async () => {
-        const fPath = '__tests__/large_file.jpeg';
+        const fPath = '__tests__/test.jpeg';
         expect(await app.flipSharp(fPath)).toBe(true);
     });
 });
