@@ -1,0 +1,17 @@
+{
+  "devDependencies": {
+    "@types/node": "^18.6.2",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "jimp": "^0.16.1"
+  },
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon ./dist/app.js",
+    "start": "concurrently npm:start:*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
