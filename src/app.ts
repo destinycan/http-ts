@@ -1,31 +1,41 @@
 #!/usr/bin/env ts-node
 
-import * as Jimp from 'jimp';
 import { exit } from 'process';
+import sharp from 'sharp';
+import axios from 'axios';
+import fs from 'fs';
 
-async function flip(imgPath: string) {
-  const fName = imgPath.split('/').reverse()[0];
-  const dest = `img/${fName}-flip.jpg`;
-  await Jimp.read(imgPath)
-    .then(image => {
-      image.flip(true, true, flipErr => {
-        if (flipErr !== null) {
-          console.log(flipErr);
-        }
+async function flipSharp(inputPath: string) {
+  let imgPath: string | Buffer;
+  if (inputPath.startsWith("http://") || inputPath.startsWith("https://")) {
+    const imageResponse = await axios({url: inputPath, responseType: 'arraybuffer'});
+    imgPath = Buffer.from(imageResponse.data, 'binary')
+  } else {
+    if (! fs.existsSync(inputPath)) {
+      console.log(`path [${inputPath}] does not exist`);
+      return false;
+    }
+    imgPath = inputPath;
+  }
 
-      })
-      .write(dest);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    console.log(`file result in ${dest}`);
+  let fName: string = inputPath.split('/').reverse()[0];
+  let dest: string = `img/${fName}-flip.jpg`;
+  try {
+    await sharp(imgPath)
+    .flip()
+    .flop()
+    .toFile(dest);
+  return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 }
 
-const imgPath = process.argv[2];
-if (imgPath === undefined) {
+const inputPath = process.argv[2];
+if (inputPath === undefined) {
   console.log('no input path, skip to flip');
   exit(0);
 }
 
-flip(imgPath);
+flipSharp(inputPath);
