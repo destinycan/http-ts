@@ -1,6 +1,5 @@
 #!/usr/bin/env ts-node
 
-import { exit } from 'process';
 import sharp from 'sharp';
 import axios from 'axios';
 import fs from 'fs';
@@ -32,10 +31,4 @@ async function flipSharp(inputPath: string) {
   }
 }
 
-const inputPath = process.argv[2];
-if (inputPath === undefined) {
-  console.log('no input path, skip to flip');
-  exit(0);
-}
-
-flipSharp(inputPath);
+export default { flipSharp };
