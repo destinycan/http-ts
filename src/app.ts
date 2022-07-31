@@ -3,6 +3,7 @@
 import sharp from 'sharp';
 import axios from 'axios';
 import fs from 'fs';
+import path from 'path';
 
 async function flipSharp(inputPath: string) {
   let imgPath: string | Buffer;
@@ -18,7 +19,11 @@ async function flipSharp(inputPath: string) {
   }
 
   let fName: string = inputPath.split('/').reverse()[0];
-  let dest: string = `img/${fName}-flip.jpg`;
+  const imgDir: string = path.resolve(`${__dirname}/../img`);
+  let dest: string = `${imgDir}/${fName}-flip.jpg`;
+  if (!fs.existsSync(imgDir)) {
+    fs.mkdirSync(imgDir);
+  }
   try {
     await sharp(imgPath)
     .flip()
