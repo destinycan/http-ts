@@ -9,6 +9,10 @@ http &amp; transform stream
 
 
 ## How to Use
+- follow the step to use the application
+  1. run `npm install`
+  2. choose one way below to launch it
+
 ### use ts-node
 - `ts-node src/main.ts <path|url>`
 ### use npm
@@ -16,6 +20,7 @@ http &amp; transform stream
 2. `node --max-old-space-size=256 dist/main.js <path|url>`
 
 ## Testing
+- get testing result for flip function and it coverage in `coverage/`
 ### How to use
 - `npm test`
 
@@ -34,7 +39,7 @@ http &amp; transform stream
 - input can be `path` or `url`
 - error handling
 
-### Function support flip
+### Function supporting flip
 
 - according to the size limitation of the requirements, `sharp` is a better choice to deal with it.
   - https://www.npmjs.com/package/@types/sharp
@@ -48,3 +53,6 @@ http &amp; transform stream
 1. no input
 1. empty input
 2. handle wrong path or wrong url
+
+## Limitaiton
+1. duplicated file name
